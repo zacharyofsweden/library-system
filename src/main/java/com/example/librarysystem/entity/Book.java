@@ -41,7 +41,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    @JsonIgnore
+    @JsonIgnoreProperties("books")
     private Author author;
 
     @ManyToMany(
@@ -53,7 +53,7 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    @JsonIgnoreProperties("books") // Add this annotation
+    @JsonIgnoreProperties("books") 
     private Set<Genre> genres = new HashSet<>();
 
     // Getters and Setters för genra 

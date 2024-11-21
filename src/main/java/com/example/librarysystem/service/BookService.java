@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.librarysystem.entity.Author;
 import com.example.librarysystem.entity.Book;
 import com.example.librarysystem.entity.Genre;
+import com.example.librarysystem.repository.AuthorRepository;
 import com.example.librarysystem.repository.BookRepository;
 import com.example.librarysystem.repository.GenreRepository;
 
@@ -17,6 +19,9 @@ public class BookService {
     private final GenreRepository genreRepository;
 
     @Autowired
+    private AuthorRepository authorRepository;
+
+    @Autowired
     public BookService(BookRepository bookRepository, GenreRepository genreRepository) {
         this.bookRepository = bookRepository;
         this.genreRepository = genreRepository;
@@ -24,7 +29,16 @@ public class BookService {
 
     // Lägger till en ny bok
     public Book addBook(Book book) {
+        
+        Long authorId = book.getAuthor().getAuthorId();
+        Author author = authorRepository.findById(authorId)
+                .orElseThrow(() -> new RuntimeException("Author not found."));
+
+        
+        book.setAuthor(author);
+
         book.setAvailable(true);
+
         return bookRepository.save(book);
     }
 

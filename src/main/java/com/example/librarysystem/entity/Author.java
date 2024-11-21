@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,11 +34,12 @@ public class Author {
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    @JsonIgnore 
+    @JsonIgnoreProperties("author")
     private Set<Book> books = new HashSet<>();
 
     // Konstruktur
-    public Author() {}
+    public Author() {
+    }
 
     public Author(String firstName, String lastName, LocalDate birthDate) {
         this.firstName = firstName;
@@ -47,28 +48,46 @@ public class Author {
     }
 
     // Getters and Setters
+    public Long getAuthorId() {
+        return authorId;
+    }
 
-    // authorId
-    public Long getAuthorId() { return authorId; }
-    public void setAuthorId(Long authorId) { this.authorId = authorId; }
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
 
-    // Förnamn
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    // Efternamn
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    // FödelseDatum
-    public LocalDate getBirthDate() { return birthDate; }
-    public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    // Böcker
-    public Set<Book> getBooks() { return books; }
-    public void setBooks(Set<Book> books) { this.books = books; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    // Metod att få hela namnet
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     public String getFullName() {
         return firstName + " " + lastName;
     }

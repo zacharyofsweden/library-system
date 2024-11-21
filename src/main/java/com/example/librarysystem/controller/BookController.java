@@ -33,8 +33,9 @@ public class BookController {
 
     // Lägger till en ny bok 
     @PostMapping
-    public Book addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+        Book createdBook = bookService.addBook(book);
+        return ResponseEntity.ok(createdBook);
     }
 
     // uppdaterar boken

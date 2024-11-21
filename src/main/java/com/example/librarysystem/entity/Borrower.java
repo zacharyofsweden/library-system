@@ -36,7 +36,7 @@ public class Borrower {
     private String memberNumber;
 
     @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL)
-    @JsonIgnore // Prevent serialization of loans in the borrower
+    @JsonIgnore 
     private Set<Loan> loans;
 
     // Konstruktur

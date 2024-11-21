@@ -43,7 +43,7 @@ public class LoanService {
         book.setAvailable(true);
         bookService.updateBook(bookId, book);
 
-        // Create a new loan
+        // Skapar ett nytt lån
         Loan loan = new Loan();
         loan.setBook(book);
         loan.setBorrower(borrower);
