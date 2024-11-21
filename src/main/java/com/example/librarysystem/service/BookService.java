@@ -18,7 +18,8 @@ public class BookService {
 
     // Lägger till en ny bok
     public Book addBook(Book book) {
-        book.setCheckedOut(true);
+        
+        book.setAvailable(true);
         return bookRepository.save(book);
     }
 
@@ -41,7 +42,7 @@ public class BookService {
     // Ta bort en bok
     public void deleteBook(Long id) {
         Book book = getBookById(id);
-        if (!book.isCheckedOut()) {
+        if (!book.getAvailable()) {
             throw new RuntimeException("Cannot delete a checked-out book.");
         }
         bookRepository.delete(book);

@@ -29,7 +29,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_id") 
+    @Column(name = "book_id")
     private Long bookId;
 
     @Column(name = "title", nullable = false)
@@ -40,7 +40,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    @JsonIgnore 
+    @JsonIgnore
     private Author author;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
@@ -63,7 +63,7 @@ public class Book {
     }
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    @JsonIgnore 
+    @JsonIgnore
     private Set<Loan> loans = new HashSet<>();
 
     // Konstruktur
@@ -71,7 +71,7 @@ public class Book {
     }
     // Getters and Setters
 
-    // id
+    // Bokid
     public Long getBookId() {
         return bookId;
     }
@@ -95,15 +95,13 @@ public class Book {
         this.author = author;
     }
 
-   
-
-    // checkatUt
-    public boolean isCheckedOut() {
-        return !available;
+    // Om boken är tillgänglig för lån
+    public Boolean getAvailable() {
+        return available;
     }
 
-    public void setCheckedOut(boolean checkedOut) {
-        this.available = !checkedOut;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     // lån

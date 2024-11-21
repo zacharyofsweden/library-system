@@ -10,8 +10,9 @@ import com.example.librarysystem.entity.Loan;
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
 
-    List<Loan> findByBorrowerId(Long borrowerId);
-
-   
     List<Loan> findByBookBookId(Long bookId);
+
+    List<Loan> findByBorrowerUserId(Long borrowerId);
+
+    List<Loan> findByReturnedDateIsNull(); // For active loans
 }

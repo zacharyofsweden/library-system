@@ -22,20 +22,20 @@ public class LoanController {
         this.loanService = loanService;
     }
 
-    // hämta en bok 
+    // Checkout en bok
     @PostMapping("/checkout")
     public Loan checkoutBook(@RequestParam Long bookId, @RequestParam Long borrowerId) {
         return loanService.checkoutBook(bookId, borrowerId);
     }
 
-    // returnerar en bok
+    // Retunera en bok
     @PostMapping("/return/{loanId}")
     public Loan returnBook(@PathVariable Long loanId) {
         return loanService.returnBook(loanId);
     }
 
-    // hämtar alla aktiva lån
-    @GetMapping
+    // Hämta alla aktiva lån
+    @GetMapping("/active")
     public List<Loan> getActiveLoans() {
         return loanService.getActiveLoans();
     }

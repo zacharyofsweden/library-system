@@ -2,59 +2,62 @@ package com.example.librarysystem.entity;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
+@Table(name = "loans")
 public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "loan_id")
+    private Long loanId;
 
+    @Column(name = "loan_date", nullable = false)
     private LocalDate loanDate;
-    private LocalDate returnDate;
 
-    @ManyToOne
+    @Column(name = "due_date", nullable = false)
+    private LocalDate dueDate;
+
+    @Column(name = "returned_date")
+    private LocalDate returnedDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"loans", "author", "genres"})
     private Book book;
 
-    @ManyToOne
-    @JoinColumn(name = "borrower_id")
-    @JsonIgnore 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id") 
+    @JsonIgnoreProperties({"loans"})
     private Borrower borrower;
 
     // Konstruktur
     public Loan() {
     }
 
-    public Loan(LocalDate loanDate, LocalDate returnDate, Book book, Borrower borrower) {
+    public Loan(LocalDate loanDate, LocalDate dueDate, Book book, Borrower borrower) {
         this.loanDate = loanDate;
-        this.returnDate = returnDate;
+        this.dueDate = dueDate;
         this.book = book;
         this.borrower = borrower;
     }
 
-    
-    private boolean isActive;
-
     // Getters and Setters
-    // id
-    public Long getId() {
-        return id;
+    public Long getLoanId() {
+        return loanId;
     }
 
-    // lånDatum
     public LocalDate getLoanDate() {
         return loanDate;
     }
@@ -63,16 +66,22 @@ public class Loan {
         this.loanDate = loanDate;
     }
 
-    // RetuneraDatum
-    public LocalDate getReturnDate() {
-        return returnDate;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
-    // bok
+    public LocalDate getReturnedDate() {
+        return returnedDate;
+    }
+
+    public void setReturnedDate(LocalDate returnedDate) {
+        this.returnedDate = returnedDate;
+    }
+
     public Book getBook() {
         return book;
     }
@@ -81,21 +90,11 @@ public class Loan {
         this.book = book;
     }
 
-    // lånare
     public Borrower getBorrower() {
         return borrower;
     }
 
     public void setBorrower(Borrower borrower) {
         this.borrower = borrower;
-    }
-
-    // Getter and Setter för är active
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 }

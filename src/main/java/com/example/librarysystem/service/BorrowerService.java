@@ -24,15 +24,17 @@ public class BorrowerService {
     // updaterar lånaren
     public Borrower updateBorrower(Long id, Borrower borrowerDetails) {
         Borrower borrower = getBorrowerById(id);
-        borrower.setName(borrowerDetails.getName());
+        borrower.setFirstName(borrowerDetails.getFirstName());
+        borrower.setLastName(borrowerDetails.getLastName());
         borrower.setEmail(borrowerDetails.getEmail());
         return borrowerRepository.save(borrower);
     }
 
     // hämtar en lånare baserad på id 
+   
     public Borrower getBorrowerById(Long id) {
         return borrowerRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Borrower not found."));
+                .orElseThrow(() -> new RuntimeException("Borrower not found."));
     }
 
     // Hämtar all lånare
