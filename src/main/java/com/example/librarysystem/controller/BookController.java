@@ -26,7 +26,6 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    
     @GetMapping
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
@@ -69,5 +68,11 @@ public class BookController {
     public ResponseEntity<List<Book>> searchBooksByGenre(@RequestParam String genre) {
         List<Book> books = bookService.searchBooksByGenre(genre);
         return ResponseEntity.ok(books);
+    }
+
+    @PutMapping("/{bookId}/genres/{genreId}")
+    public ResponseEntity<Book> addGenreToBook(@PathVariable Long bookId, @PathVariable Long genreId) {
+        Book updatedBook = bookService.addGenreToBook(bookId, genreId);
+        return ResponseEntity.ok(updatedBook);
     }
 }

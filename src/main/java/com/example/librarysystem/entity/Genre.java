@@ -3,7 +3,7 @@ package com.example.librarysystem.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,11 +22,11 @@ public class Genre {
     @Column(name = "genre_id")
     private Long genreId;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @ManyToMany(mappedBy = "genres")
-    @JsonIgnore
+    @JsonIgnoreProperties("genres")
     private Set<Book> books = new HashSet<>();
 
     // Konstruktur
@@ -38,7 +38,6 @@ public class Genre {
     }
 
     // Getters and Setters
-    
     //genra
     public Long getGenreId() {
         return genreId;
