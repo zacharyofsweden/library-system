@@ -2,7 +2,7 @@ package com.example.librarysystem.entity;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
+
 public class Borrower {
 
     @Id
@@ -35,7 +36,7 @@ public class Borrower {
     private String memberNumber;
 
     @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("borrower")
+    @JsonIgnore // Prevent serialization of loans in the borrower
     private Set<Loan> loans;
 
     // Konstruktur
@@ -55,10 +56,10 @@ public class Borrower {
         return userId;
     }
 
-    
     // AnvändareFörnamn
     public String getFirstName() {
         return firstName;
+
     }
 
     public void setFirstName(String firstName) {

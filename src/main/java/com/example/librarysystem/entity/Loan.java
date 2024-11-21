@@ -32,13 +32,13 @@ public class Loan {
     @Column(name = "returned_date")
     private LocalDate returnedDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id")
-    @JsonIgnoreProperties({"loans", "author", "genres"})
+    @JsonIgnoreProperties({"author", "genres", "loans"})
     private Book book;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id") 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"loans"})
     private Borrower borrower;
 
