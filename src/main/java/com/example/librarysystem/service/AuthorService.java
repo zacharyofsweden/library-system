@@ -33,7 +33,7 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
-    // Upddatre en förfatare
+    // Updatre en förfatare
     public Author updateAuthor(Long id, Author authorDetails) {
         Author author = getAuthorById(id);
         author.setFirstName(authorDetails.getFirstName());
